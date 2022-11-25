@@ -1,6 +1,6 @@
 import Grid from '@components/Grid/Grid';
-import { Album } from '@modules/album/types';
 import AlbumItem from '@modules/album/components/AlbumItem';
+import Album from '@modules/album/models/Album';
 
 type AlbumListProps = {
    albums: Array<Album>;

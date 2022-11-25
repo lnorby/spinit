@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import useArtistAlbums from '@modules/album/hooks/useArtistAlbums';
-import { AlbumType } from '@modules/album/types';
 import AlbumList from '@modules/album/components/AlbumList';
 import Tabs from '@components/Tabs/Tabs';
 import Spacer from '@components/Spacer/Spacer';
+import { AlbumType } from '@modules/album/models/Album';
 
 type ArtistDiscographyProps = {
    artistId: string;

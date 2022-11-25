@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
 import Image from 'next/image';
-import { Track } from '@modules/track/types';
+import Track from '@modules/track/models/Track';
 
 type PlayerTrackProps = {
    track: Track;

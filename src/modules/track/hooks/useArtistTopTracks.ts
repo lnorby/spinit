@@ -1,8 +1,8 @@
 import { useQuery } from 'react-query';
 import api from '@utils/api';
-import { Track } from '@modules/track/types';
 import { formatDuration } from '@modules/track/utils';
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
+import Track from '@modules/track/models/Track';
 
 const useArtistTopTracks = (artistId: string) => {
    const fetchTracks = async (): Promise<Array<Track>> => {

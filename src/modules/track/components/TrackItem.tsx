@@ -2,11 +2,11 @@ import Link from 'next/link';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
 import styled from 'styled-components';
 import { truncateText } from '@styles/utils';
-import { Track } from '@modules/track/types';
 import { useSelector } from 'react-redux';
 import { RootState } from '@store/store';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
+import Track from '@modules/track/models/Track';
 
 type TrackItemProps = {
    position: number;

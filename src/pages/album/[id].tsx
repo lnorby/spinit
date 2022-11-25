@@ -5,7 +5,6 @@ import Heading from '@components/Heading/Heading';
 import Container from '@components/Container/Container';
 import PlayButton from '@components/PlayButton/PlayButton';
 import Spacer from '@components/Spacer/Spacer';
-import { Album } from '@modules/album/types';
 import { getAlbumTypeName } from '@modules/album/utils';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
@@ -14,6 +13,7 @@ import { NextPageWithLayout } from '../_app';
 import { ReactElement } from 'react';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
 import getAlbum from '@modules/album/api/getAlbum';
+import Album from '@modules/album/models/Album';
 
 type AlbumPageProps = {
    album: Album;

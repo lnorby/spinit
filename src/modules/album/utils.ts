@@ -1,4 +1,4 @@
-import { AlbumType } from '@modules/album/types';
+import { AlbumType } from '@modules/album/models/Album';
 
 const typeNames = {
    album: 'Album',

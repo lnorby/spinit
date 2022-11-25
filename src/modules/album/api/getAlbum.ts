@@ -1,6 +1,6 @@
 import api from '@utils/api';
-import { Album } from '@modules/album/types';
-import { Artist } from '@modules/artist/types';
+import Album from '@modules/album/models/Album';
+import Artist from '@modules/artist/models/Artist';
 
 const getAlbum = async (id: string): Promise<Album> => {
    const data = await api.get(`/albums/${id}`);

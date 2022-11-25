@@ -1,7 +1,7 @@
-import { Album, AlbumType } from '@modules/album/types';
 import { useQuery } from 'react-query';
-import { Artist } from '@modules/artist/types';
 import api from '@utils/api';
+import Album, { AlbumType } from '@modules/album/models/Album';
+import Artist from '@modules/artist/models/Artist';
 
 const useArtistAlbums = (artistId: string, albumType: AlbumType, limit: number) => {
    const fetchAlbums = async (): Promise<Array<Album>> => {

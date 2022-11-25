@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
 
 type ArtistLinksProps = {
    artists: Array<Artist>;

@@ -4,7 +4,6 @@ import Heading from '@components/Heading/Heading';
 import Container from '@components/Container/Container';
 import Spacer from '@components/Spacer/Spacer';
 import PlayButton from '@components/PlayButton/PlayButton';
-import { Artist } from '@modules/artist/types';
 import ArtistDiscography from '@modules/artist/components/ArtistDiscography';
 import ArtistTopTracks from '@modules/artist/components/ArtistTopTracks';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
@@ -13,6 +12,7 @@ import { NextPageWithLayout } from '../_app';
 import { ReactElement } from 'react';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
 import getArtist from '@modules/artist/api/getArtist';
+import Artist from '@modules/artist/models/Artist';
 
 type ArtistPageProps = {
    artist: Artist;

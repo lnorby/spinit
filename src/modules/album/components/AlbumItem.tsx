@@ -1,7 +1,7 @@
 import Card from '@components/Card/Card';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
-import { Album } from '@modules/album/types';
 import { getAlbumTypeName } from '@modules/album/utils';
+import Album from '@modules/album/models/Album';
 
 type AlbumItemProps = {
    album: Album;

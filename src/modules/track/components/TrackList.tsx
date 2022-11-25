@@ -1,7 +1,7 @@
 import TrackItem from '@modules/track/components/TrackItem';
 import { useDispatch } from 'react-redux';
 import { addTracks } from '@store/playlistSlice';
-import { Track } from '@modules/track/types';
+import Track from '@modules/track/models/Track';
 
 type TrackListProps = {
    tracks: Array<Track>;

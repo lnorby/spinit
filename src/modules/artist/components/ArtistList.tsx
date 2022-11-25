@@ -1,6 +1,6 @@
 import ArtistItem from '@modules/artist/components/ArtistItem';
 import Grid from '@components/Grid/Grid';
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
 
 type ArtistListProps = {
    artists: Array<Artist>;

@@ -1,6 +1,6 @@
 import { useQuery } from 'react-query';
 import api from '@utils/api';
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
 
 const useArtists = (searchQuery: string, limit: number) => {
    const fetchArtists = async (): Promise<Array<Artist>> => {

@@ -1,5 +1,5 @@
 import Card from '@components/Card/Card';
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
 
 type ArtistItemProps = {
    artist: Artist;

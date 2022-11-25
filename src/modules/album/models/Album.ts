@@ -1,8 +1,8 @@
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
 
 export type AlbumType = 'album' | 'single' | 'compilation';
 
-export type Album = {
+type Album = {
    id: string;
    name: string;
    type: AlbumType;
@@ -12,3 +12,5 @@ export type Album = {
    totalTracks: number;
    url: string;
 };
+
+export default Album;

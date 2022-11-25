@@ -1,7 +1,7 @@
 import api from '@utils/api';
 import { formatDuration } from '@modules/track/utils';
-import { Track } from '@modules/track/types';
-import { Artist } from '@modules/artist/types';
+import Artist from '@modules/artist/models/Artist';
+import Track from '@modules/track/models/Track';
 
 const getTrack = async (id: string): Promise<Track> => {
    const data = await api.get(`/tracks/${id}`);
