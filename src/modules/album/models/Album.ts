@@ -8,7 +8,7 @@ type Album = {
    type: AlbumType;
    releaseDate: string;
    image: string;
-   artists: Array<Artist>;
+   artists: Artist[];
    totalTracks: number;
    url: string;
 };

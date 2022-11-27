@@ -10,11 +10,17 @@ type TrackSearchProps = {
 const TrackSearch = ({ searchQuery, limit }: TrackSearchProps) => {
    const query = useTracks(searchQuery, limit);
 
+   if (query.isLoading) {
+      return;
+   }
+
+   if (query.isError) {
+      return <p>Nem sikerült betölteni a tartalmat.</p>;
+   }
+
    return (
       <>
-         {query.isLoading ? <p>Betöltés...</p> : null}
-         {query.isError ? <p>Nem sikerült betölteni a tartalmat.</p> : null}
-         {query.data ? (
+         {query.data?.length ? (
             <TrackList
                tracks={query.data}
                positionByTrackNumber={false}
@@ -22,7 +28,9 @@ const TrackSearch = ({ searchQuery, limit }: TrackSearchProps) => {
                showArtists={true}
                showAlbumName={true}
             />
-         ) : null}
+         ) : (
+            <p>Nincs találat.</p>
+         )}
       </>
    );
 };

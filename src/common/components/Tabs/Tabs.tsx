@@ -1,61 +1,77 @@
-import styled from 'styled-components';
+import { ComponentPropsWithoutRef, ReactElement, useEffect, useState } from 'react';
+import styled, { css } from 'styled-components';
+import { Value } from '@components/Tabs/TabPanel';
 
-type TabsProps = {
-   items: Array<{ label: string; value: any }>;
-   onChange: (value: any) => void;
-   value?: any;
-};
+type TabsContainerProps = {
+   children: ReactElement[];
+   value?: Value;
+} & ComponentPropsWithoutRef<'div'>;
 
-const Tabs = ({ items, onChange, value }: TabsProps) => {
+// TODO: make it TS compatible
+const Tabs = ({ children, value: initialValue, ...restProps }: TabsContainerProps) => {
+   const [value, setValue] = useState(initialValue ?? children[0].props.value);
+   const [activatedTabs, setActivatedTabs] = useState<Set<Value>>(new Set());
+
+   const handleClick = (value: Value) => {
+      setValue(value);
+      setActivatedTabs((state) => new Set(state).add(value));
+   };
+
+   useEffect(() => {
+      setActivatedTabs((state) => new Set(state).add(value));
+   }, [value]);
+
+   let buttons: ReactElement[] = [];
+   let panels: ReactElement[] = [];
+
+   children.map((child) => {
+      buttons.push(
+         <Button
+            active={child.props.value === value}
+            key={child.props.value}
+            onClick={() => handleClick(child.props.value)}
+         >
+            {child.props.label}
+         </Button>
+      );
+
+      if (activatedTabs.has(child.props.value)) {
+         panels.push(
+            <section hidden={child.props.value !== value} key={child.props.value}>
+               {child}
+            </section>
+         );
+      }
+   });
+
    return (
-      <StyledTabs>
-         {items.map((item) => (
-            <Tab key={item.value}>
-               <TabInput
-                  type="radio"
-                  checked={item.value === value}
-                  onChange={() => onChange(item.value)}
-               />
-               <TabLabel>{item.label}</TabLabel>
-            </Tab>
-         ))}
-      </StyledTabs>
+      <div {...restProps}>
+         <ButtonContainer>{buttons}</ButtonContainer>
+         {panels}
+      </div>
    );
 };
 
-const StyledTabs = styled.div`
+const ButtonContainer = styled.div`
    display: flex;
    align-items: center;
-   margin-left: -12px;
+   margin: 0 0 30px -12px;
 `;
 
-const Tab = styled.label`
-   position: relative;
+const Button = styled.button<{ active: boolean }>`
    margin-left: 12px;
-`;
-
-const TabInput = styled.input`
-   position: absolute;
-   top: 0;
-   left: 0;
-   width: 100%;
-   height: 100%;
-   opacity: 0;
-   cursor: pointer;
-`;
-
-const TabLabel = styled.span`
-   display: block;
    padding: 0 12px;
    border-radius: 99px;
    background: rgba(255, 255, 255, 0.07);
    font-size: 14px;
    line-height: 32px;
-
-   ${TabInput}:checked + & {
-      color: ${(p) => p.theme.colors.text.inverse};
-      background: #fff;
-   }
+   ${(p) =>
+      p.active
+         ? css`
+              color: ${(p) => p.theme.colors.text.inverse};
+              background: #fff;
+           `
+         : ''}
 `;
 
 export default Tabs;

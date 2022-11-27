@@ -7,7 +7,7 @@ type Track = {
    trackNumber: number;
    duration: string;
    album?: Album;
-   artists: Array<Artist>;
+   artists: Artist[];
 };
 
 export default Track;

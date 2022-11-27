@@ -5,7 +5,7 @@ import Artist from '@modules/artist/models/Artist';
 import Track from '@modules/track/models/Track';
 
 const useArtistTopTracks = (artistId: string) => {
-   const fetchTracks = async (): Promise<Array<Track>> => {
+   const fetchTracks = async (): Promise<Track[]> => {
       const data = await api.get(`/artists/${artistId}/top-tracks?market=HU`);
 
       return (

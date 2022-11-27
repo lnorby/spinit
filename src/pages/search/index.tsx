@@ -10,71 +10,43 @@ import AlbumSearch from '@modules/search/components/AlbumSearch';
 import ArtistSearch from '@modules/search/components/ArtistSearch';
 import { NextPageWithLayout } from '../_app';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
-import useDebounce from '@hooks/useDebounce';
-
-const tabs = [
-   { label: 'Az összes', value: 'all' },
-   { label: 'Dalok', value: 'tracks' },
-   { label: 'Albumok', value: 'albums' },
-   { label: 'Előadók', value: 'artists' },
-];
+import TabPanel from '@components/Tabs/TabPanel';
 
 const SearchPage: NextPageWithLayout = () => {
    const [searchQuery, setSearchQuery] = useState('');
-   const [activeTab, setActiveTab] = useState<'all' | 'tracks' | 'albums' | 'artists'>('all');
-   const debouncedSearchQuery = useDebounce(searchQuery, 400);
 
    return (
       <StyledSearchPage>
          <Container>
-            <SearchInput
-               value={searchQuery}
-               placeholder="Mit szeretnél hallgatni?"
-               autoFocus
-               onChange={(e) => setSearchQuery(e.target.value)}
-            />
-            {debouncedSearchQuery !== '' ? (
-               <>
-                  <Spacer y={20} />
-                  <Tabs items={tabs} value={activeTab} onChange={(value) => setActiveTab(value)} />
+            <SearchInput onChange={(value) => setSearchQuery(value)} />
+            <Spacer y={20} />
+            <Tabs hidden={searchQuery === ''}>
+               <TabPanel label="Az összes" value="all">
+                  <SearchPageHeading as="h2" level={2}>
+                     Dalok
+                  </SearchPageHeading>
+                  <TrackSearch searchQuery={searchQuery} limit={5} />
                   <Spacer y={40} />
-                  {activeTab === 'all' ? (
-                     <SearchPageHeading as="h2" level={2}>
-                        Dalok
-                     </SearchPageHeading>
-                  ) : null}
-                  {activeTab === 'all' || activeTab === 'tracks' ? (
-                     <TrackSearch
-                        searchQuery={debouncedSearchQuery}
-                        limit={activeTab === 'all' ? 5 : 25}
-                     />
-                  ) : null}
-                  {activeTab === 'all' ? <Spacer y={40} /> : null}
-                  {activeTab === 'all' ? (
-                     <SearchPageHeading as="h2" level={2}>
-                        Albumok
-                     </SearchPageHeading>
-                  ) : null}
-                  {activeTab === 'all' || activeTab === 'albums' ? (
-                     <AlbumSearch
-                        searchQuery={debouncedSearchQuery}
-                        limit={activeTab === 'all' ? 9 : 45}
-                     />
-                  ) : null}
-                  {activeTab === 'all' ? <Spacer y={40} /> : null}
-                  {activeTab === 'all' ? (
-                     <SearchPageHeading as="h2" level={2}>
-                        Előadók
-                     </SearchPageHeading>
-                  ) : null}
-                  {activeTab === 'all' || activeTab === 'artists' ? (
-                     <ArtistSearch
-                        searchQuery={debouncedSearchQuery}
-                        limit={activeTab === 'all' ? 9 : 45}
-                     />
-                  ) : null}
-               </>
-            ) : null}
+                  <SearchPageHeading as="h2" level={2}>
+                     Albumok
+                  </SearchPageHeading>
+                  <AlbumSearch searchQuery={searchQuery} limit={9} />
+                  <Spacer y={40} />
+                  <SearchPageHeading as="h2" level={2}>
+                     Előadók
+                  </SearchPageHeading>
+                  <ArtistSearch searchQuery={searchQuery} limit={9} />
+               </TabPanel>
+               <TabPanel label="Dalok" value="tracks">
+                  <TrackSearch searchQuery={searchQuery} limit={25} />
+               </TabPanel>
+               <TabPanel label="Albumok" value="albums">
+                  <AlbumSearch searchQuery={searchQuery} limit={45} />
+               </TabPanel>
+               <TabPanel label="Előadók" value="artists">
+                  <ArtistSearch searchQuery={searchQuery} limit={45} />
+               </TabPanel>
+            </Tabs>
          </Container>
       </StyledSearchPage>
    );

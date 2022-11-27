@@ -4,7 +4,7 @@ import Album, { AlbumType } from '@modules/album/models/Album';
 import Artist from '@modules/artist/models/Artist';
 
 const useArtistAlbums = (artistId: string, albumType: AlbumType, limit: number) => {
-   const fetchAlbums = async (): Promise<Array<Album>> => {
+   const fetchAlbums = async (): Promise<Album[]> => {
       const data = await api.get(
          `/artists/${artistId}/albums?market=HU&include_groups=${albumType}${
             limit ? `&limit=${limit}` : ''

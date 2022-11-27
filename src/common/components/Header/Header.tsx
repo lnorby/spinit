@@ -3,14 +3,14 @@ import Link from 'next/link';
 import Logo from '@components/Logo/Logo';
 import { useRouter } from 'next/router';
 import { FiSearch } from 'react-icons/fi';
-import useWindowScrollPosition from '@hooks/useWindowScrollPosition';
+import useScrollPosition from '@react-hook/window-scroll';
 
 const Header = () => {
    const router = useRouter();
-   const windowScrollPosition = useWindowScrollPosition();
+   const windowScrollPosition = useScrollPosition();
 
    return (
-      <StyledHeader overlayVisible={windowScrollPosition.y > 0}>
+      <StyledHeader overlayVisible={windowScrollPosition > 0}>
          <Logo />
          {router.pathname !== '/search' ? (
             <SearchButton href="/search">

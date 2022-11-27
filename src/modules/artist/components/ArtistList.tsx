@@ -3,7 +3,7 @@ import Grid from '@components/Grid/Grid';
 import Artist from '@modules/artist/models/Artist';
 
 type ArtistListProps = {
-   artists: Array<Artist>;
+   artists: Artist[];
 };
 
 const ArtistList = ({ artists }: ArtistListProps) => {

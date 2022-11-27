@@ -10,11 +10,21 @@ type AlbumSearchProps = {
 const AlbumSearch = ({ searchQuery, limit }: AlbumSearchProps) => {
    const query = useAlbums(searchQuery, limit);
 
+   if (query.isLoading) {
+      return;
+   }
+
+   if (query.isError) {
+      return <p>Nem sikerült betölteni a tartalmat.</p>;
+   }
+
    return (
       <>
-         {query.isLoading ? <p>Betöltés...</p> : null}
-         {query.isError ? <p>Nem sikerült betölteni a tartalmat.</p> : null}
-         {query.data ? <AlbumList albums={query.data} showArtists={true} /> : null}
+         {query.data?.length ? (
+            <AlbumList albums={query.data} showArtists={true} />
+         ) : (
+            <p>Nincs találat.</p>
+         )}
       </>
    );
 };

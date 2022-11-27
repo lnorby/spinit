@@ -4,7 +4,7 @@ import Album from '@modules/album/models/Album';
 import Artist from '@modules/artist/models/Artist';
 
 const useAlbums = (searchQuery: string, limit: number) => {
-   const fetchAlbums = async (): Promise<Array<Album>> => {
+   const fetchAlbums = async (): Promise<Album[]> => {
       const data = await api.get(`/search/?q=${searchQuery}&type=album&market=HU&limit=${limit}`);
 
       return (

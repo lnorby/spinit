@@ -4,7 +4,7 @@ import { addTracks } from '@store/playlistSlice';
 import Track from '@modules/track/models/Track';
 
 type TrackListProps = {
-   tracks: Array<Track>;
+   tracks: Track[];
    positionByTrackNumber?: boolean;
    showAlbumImage: boolean;
    showArtists: boolean;

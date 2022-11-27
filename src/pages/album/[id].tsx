@@ -130,7 +130,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
    try {
       return {
          props: {
-            album: getAlbum(String(params?.id)),
+            album: await getAlbum(String(params?.id)),
          },
       };
    } catch (error) {

@@ -3,7 +3,7 @@ import AlbumItem from '@modules/album/components/AlbumItem';
 import Album from '@modules/album/models/Album';
 
 type AlbumListProps = {
-   albums: Array<Album>;
+   albums: Album[];
    showArtists: boolean;
 };
 

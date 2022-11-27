@@ -5,7 +5,7 @@ import Artist from '@modules/artist/models/Artist';
 import Track from '@modules/track/models/Track';
 
 const useTracks = (searchQuery: string, limit: number) => {
-   const fetchTracks = async (): Promise<Array<Track>> => {
+   const fetchTracks = async (): Promise<Track[]> => {
       const data = await api.get(`/search?q=${searchQuery}&type=track&market=HU&limit=${limit}`);
 
       return (

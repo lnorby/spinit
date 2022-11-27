@@ -34,20 +34,13 @@ class Api {
    }
 
    // TODO: cancel request
-   private async makeRequest(
-      url: string,
-      method: HttpMethod,
-      config: Config,
-      authorize: boolean = true
-   ): Promise<any> {
+   private async makeRequest(url: string, method: HttpMethod, config: Config): Promise<any> {
       // const controller = new AbortController();
 
-      if (authorize) {
-         config.headers = {
-            Authorization: `Bearer ${await this.getAccessToken()}`,
-            ...config.headers,
-         };
-      }
+      config.headers = {
+         Authorization: `Bearer ${await this.getAccessToken()}`,
+         ...config.headers,
+      };
 
       const request = this.axiosInstance
          .request({
@@ -70,24 +63,21 @@ class Api {
          return this.accessToken;
       }
 
-      const data = await this.makeRequest(
-         'https://accounts.spotify.com/api/token',
-         'POST',
-         {
-            data: {
-               grant_type: 'client_credentials',
-            },
-            headers: {
-               Authorization:
-                  'Basic ' +
-                  new Buffer(
-                     '5f6015571ed8444c83f0ab10ae211afd:4749e4280338400a903d4ac4d9ed320c'
-                  ).toString('base64'),
-               'Content-Type': 'application/x-www-form-urlencoded',
-            },
+      const { data } = await axios.request({
+         url: 'https://accounts.spotify.com/api/token',
+         method: 'POST',
+         data: {
+            grant_type: 'client_credentials',
          },
-         false
-      );
+         headers: {
+            Authorization:
+               'Basic ' +
+               new Buffer(
+                  '5f6015571ed8444c83f0ab10ae211afd:4749e4280338400a903d4ac4d9ed320c'
+               ).toString('base64'),
+            'Content-Type': 'application/x-www-form-urlencoded',
+         },
+      });
 
       this.accessToken = data.access_token;
 

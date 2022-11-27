@@ -14,7 +14,6 @@ const ArtistTopTracks = ({ artistId }: ArtistTopTracksProps) => {
 
    return (
       <>
-         {query.isLoading ? <p>Betöltés...</p> : null}
          {query.isError ? <p>Nem sikerült betölteni a tartalmat.</p> : null}
          {query.data ? (
             <>

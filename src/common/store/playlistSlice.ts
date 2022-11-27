@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type PlaylistState = {
-   tracks: Array<string>;
+   tracks: string[];
    currentIndex: number;
 };
 
@@ -14,7 +14,7 @@ const playlistSlice = createSlice({
    name: 'playlist',
    initialState,
    reducers: {
-      addTracks: (state, action: PayloadAction<Array<string>>) => {
+      addTracks: (state, action: PayloadAction<string[]>) => {
          state.tracks = action.payload;
          state.currentIndex = 0;
       },

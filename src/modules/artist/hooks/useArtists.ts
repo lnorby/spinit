@@ -3,7 +3,7 @@ import api from '@utils/api';
 import Artist from '@modules/artist/models/Artist';
 
 const useArtists = (searchQuery: string, limit: number) => {
-   const fetchArtists = async (): Promise<Array<Artist>> => {
+   const fetchArtists = async (): Promise<Artist[]> => {
       const data = await api.get(`/search/?q=${searchQuery}&type=artist&market=HU&limit=${limit}`);
 
       return (

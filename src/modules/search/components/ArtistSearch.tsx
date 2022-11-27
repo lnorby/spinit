@@ -10,13 +10,15 @@ type ArtistSearchProps = {
 const ArtistSearch = ({ searchQuery, limit }: ArtistSearchProps) => {
    const query = useArtists(searchQuery, limit);
 
-   return (
-      <>
-         {query.isLoading ? <p>Betöltés...</p> : null}
-         {query.isError ? <p>Nem sikerült betölteni a tartalmat.</p> : null}
-         {query.data ? <ArtistList artists={query.data} /> : null}
-      </>
-   );
+   if (query.isLoading) {
+      return;
+   }
+
+   if (query.isError) {
+      return <p>Nem sikerült betölteni a tartalmat.</p>;
+   }
+
+   return <>{query.data?.length ? <ArtistList artists={query.data} /> : <p>Nincs találat.</p>}</>;
 };
 
 export default ArtistSearch;

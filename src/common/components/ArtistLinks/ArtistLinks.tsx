@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import Artist from '@modules/artist/models/Artist';
 
 type ArtistLinksProps = {
-   artists: Array<Artist>;
+   artists: Artist[];
 };
 
 const ArtistLinks = ({ artists }: ArtistLinksProps) => {
