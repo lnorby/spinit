@@ -20,15 +20,21 @@ type ArtistPageProps = {
    artist: Artist;
 };
 
-const ArtistPage: NextPageWithLayout = ({ artist }: ArtistPageProps) => {
+const ArtistPage: NextPageWithLayout<ArtistPageProps> = ({ artist }) => {
    const handlePlay = () => {};
 
    return (
       <>
          <ArtistPageHeader>
             <ArtistImageContainer>
-               {artist.image !== '' ? (
-                  <EquilateralImage src={artist.image} width={230} height={230} priority alt="" />
+               {artist.primaryImage ? (
+                  <EquilateralImage
+                     src={artist.primaryImage.url}
+                     width={230}
+                     height={230}
+                     priority
+                     alt=""
+                  />
                ) : (
                   <ImagePlaceholder />
                )}
@@ -118,7 +124,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
    try {
       return {
          props: {
-            artist: await getArtist(String(params?.id)),
+            artist: (await getArtist(String(params?.id))).toJSON(),
          },
       };
    } catch (error) {

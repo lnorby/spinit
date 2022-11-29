@@ -6,7 +6,7 @@ import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 
 type CardProps = {
    title: string;
-   image: string;
+   image: string | undefined;
    roundedImage?: boolean;
    extras: any;
    url: string;
@@ -16,7 +16,7 @@ const Card = ({ title, image, roundedImage = false, extras, url }: CardProps) =>
    return (
       <StyledCard>
          <CardImageContainer rounded={roundedImage}>
-            {image !== '' ? (
+            {image && image !== '' ? (
                <EquilateralImage src={image} width={200} height={200} alt="" />
             ) : (
                <ImagePlaceholder />

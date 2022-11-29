@@ -11,7 +11,7 @@ const AlbumSearch = ({ searchQuery, limit }: AlbumSearchProps) => {
    const query = useAlbums(searchQuery, limit);
 
    if (query.isLoading) {
-      return;
+      return null;
    }
 
    if (query.isError) {

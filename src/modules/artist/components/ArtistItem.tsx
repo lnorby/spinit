@@ -10,7 +10,7 @@ const ArtistItem = ({ artist }: ArtistItemProps) => {
    return (
       <Card
          title={artist.name}
-         image={artist.image}
+         image={artist.primaryImage?.url}
          roundedImage={true}
          extras="Előadó"
          url={artist.url}

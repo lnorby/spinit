@@ -1,18 +1,19 @@
 import { ComponentPropsWithoutRef, ReactElement, useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
-import { Value } from '@components/Tabs/TabPanel';
 
-type TabsContainerProps = {
+type TabsProps = {
    children: ReactElement[];
-   value?: Value;
-} & ComponentPropsWithoutRef<'div'>;
+   value?: string;
+};
+
+type Props = TabsProps & Omit<ComponentPropsWithoutRef<'div'>, keyof TabsProps>;
 
 // TODO: make it TS compatible
-const Tabs = ({ children, value: initialValue, ...restProps }: TabsContainerProps) => {
+const Tabs = ({ children, value: initialValue, ...restProps }: Props) => {
    const [value, setValue] = useState(initialValue ?? children[0].props.value);
-   const [activatedTabs, setActivatedTabs] = useState<Set<Value>>(new Set());
+   const [activatedTabs, setActivatedTabs] = useState<Set<string>>(new Set());
 
-   const handleClick = (value: Value) => {
+   const handleClick = (value: string) => {
       setValue(value);
       setActivatedTabs((state) => new Set(state).add(value));
    };

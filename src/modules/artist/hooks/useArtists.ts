@@ -4,20 +4,10 @@ import Artist from '@modules/artist/models/Artist';
 
 const useArtists = (searchQuery: string, limit: number) => {
    const fetchArtists = async (): Promise<Artist[]> => {
-      const data = await api.get(`/search/?q=${searchQuery}&type=artist&market=HU&limit=${limit}`);
-
-      return (
-         data.artists?.items?.map(
-            (artist: any): Artist => ({
-               id: artist.id,
-               name: artist.name,
-               image:
-                  artist.images?.find((image: any) => image.width <= 700 && image.width >= 300)
-                     ?.url ?? '',
-               url: `/artist/${artist.id}`,
-            })
-         ) ?? []
+      const data = await api.get<any>(
+         `/search/?q=${searchQuery}&type=artist&market=HU&limit=${limit}`
       );
+      return data.artists?.items?.map((artist: any) => new Artist(artist)) ?? [];
    };
 
    return useQuery({

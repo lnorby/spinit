@@ -1,19 +1,20 @@
 import styled from 'styled-components';
 import { MdPlayArrow } from 'react-icons/md';
-import { ComponentPropsWithoutRef } from 'react';
 
 type PlayButtonProps = {
    size: 'small' | 'big';
-} & ComponentPropsWithoutRef<'button'>;
+   onClick: (event: MouseEvent) => void;
+};
 
 const sizeInPx = {
    small: 48,
    big: 56,
 };
 
-const PlayButton = ({ size, ...restProps }: PlayButtonProps) => {
+// TODO: onClick
+const PlayButton = ({ size, onClick }: PlayButtonProps) => {
    return (
-      <StyledPlayButton size={size} {...restProps}>
+      <StyledPlayButton size={size}>
          <MdPlayArrow size={size === 'big' ? 36 : 32} />
       </StyledPlayButton>
    );

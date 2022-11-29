@@ -1,6 +1,5 @@
 import Card from '@components/Card/Card';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
-import { getAlbumTypeName } from '@modules/album/utils';
 import Album from '@modules/album/models/Album';
 
 type AlbumItemProps = {
@@ -12,13 +11,15 @@ type AlbumItemProps = {
 const AlbumItem = ({ album, showArtists }: AlbumItemProps) => {
    const extras = (
       <>
-         {new Date(album.releaseDate).getFullYear()}
+         {album.releaseYear}
          {' · '}
-         {showArtists ? <ArtistLinks artists={album.artists} /> : getAlbumTypeName(album.type)}
+         {showArtists ? <ArtistLinks artists={album.artists} /> : album.typeName}
       </>
    );
 
-   return <Card title={album.name} image={album.image} extras={extras} url={album.url} />;
+   return (
+      <Card title={album.name} image={album.primaryImage?.url} extras={extras} url={album.url} />
+   );
 };
 
 export default AlbumItem;

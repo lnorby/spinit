@@ -11,7 +11,7 @@ const ArtistAlbums = ({ artistId, albumType }: ArtistAlbumsProps) => {
    const query = useArtistAlbums(artistId, albumType, 20);
 
    if (query.isLoading) {
-      return;
+      return null;
    }
 
    if (query.isError) {

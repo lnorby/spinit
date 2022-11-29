@@ -11,7 +11,7 @@ const ArtistSearch = ({ searchQuery, limit }: ArtistSearchProps) => {
    const query = useArtists(searchQuery, limit);
 
    if (query.isLoading) {
-      return;
+      return null;
    }
 
    if (query.isError) {

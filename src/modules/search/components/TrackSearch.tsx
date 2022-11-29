@@ -11,7 +11,7 @@ const TrackSearch = ({ searchQuery, limit }: TrackSearchProps) => {
    const query = useTracks(searchQuery, limit);
 
    if (query.isLoading) {
-      return;
+      return null;
    }
 
    if (query.isError) {

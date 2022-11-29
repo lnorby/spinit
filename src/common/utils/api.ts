@@ -9,32 +9,35 @@ type Config = {
 };
 
 class Api {
-   private accessToken: string | null = null;
+   private axios: AxiosInstance;
+   private accessToken: string | undefined;
 
-   constructor(private axiosInstance: AxiosInstance) {}
-
-   public get(url: string, config: Config = {}): Promise<any> {
-      return this.makeRequest(url, 'GET', config);
+   constructor(axios: AxiosInstance) {
+      this.axios = axios;
    }
 
-   public post(url: string, data: object, config: Config = {}): Promise<any> {
-      return this.makeRequest(url, 'POST', { ...config, data });
+   get<T>(url: string, config: Config = {}): Promise<T> {
+      return this.makeRequest<T>(url, 'GET', config);
    }
 
-   public patch(url: string, data: object, config: Config = {}): Promise<any> {
-      return this.makeRequest(url, 'PATCH', { ...config, data });
+   post<T>(url: string, data: object, config: Config = {}): Promise<T> {
+      return this.makeRequest<T>(url, 'POST', { ...config, data });
    }
 
-   public put(url: string, data: object, config: Config = {}): Promise<any> {
-      return this.makeRequest(url, 'PUT', { ...config, data });
+   patch<T>(url: string, data: object, config: Config = {}): Promise<T> {
+      return this.makeRequest<T>(url, 'PATCH', { ...config, data });
    }
 
-   public delete(url: string, config: Config = {}): Promise<any> {
-      return this.makeRequest(url, 'DELETE', config);
+   put<T>(url: string, data: object, config: Config = {}): Promise<T> {
+      return this.makeRequest<T>(url, 'PUT', { ...config, data });
+   }
+
+   delete<T>(url: string, config: Config = {}): Promise<T> {
+      return this.makeRequest<T>(url, 'DELETE', config);
    }
 
    // TODO: cancel request
-   private async makeRequest(url: string, method: HttpMethod, config: Config): Promise<any> {
+   private async makeRequest<T>(url: string, method: HttpMethod, config: Config): Promise<T> {
       // const controller = new AbortController();
 
       config.headers = {
@@ -42,7 +45,7 @@ class Api {
          ...config.headers,
       };
 
-      const request = this.axiosInstance
+      const request = this.axios
          .request({
             url,
             method,
@@ -63,7 +66,7 @@ class Api {
          return this.accessToken;
       }
 
-      const { data } = await axios.request({
+      const { data } = await this.axios.request({
          url: 'https://accounts.spotify.com/api/token',
          method: 'POST',
          data: {

@@ -37,8 +37,13 @@ const TrackItem = ({
          </TrackPosition>
          {showAlbumImage ? (
             <TrackImageContainer>
-               {track.album?.image !== '' ? (
-                  <EquilateralImage src={track.album?.image || ''} width={40} height={40} alt="" />
+               {track.album?.primaryImage ? (
+                  <EquilateralImage
+                     src={track.album.primaryImage.url}
+                     width={40}
+                     height={40}
+                     alt=""
+                  />
                ) : (
                   <ImagePlaceholder />
                )}

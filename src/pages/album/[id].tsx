@@ -5,7 +5,6 @@ import Heading from '@components/Heading/Heading';
 import Container from '@components/Container/Container';
 import PlayButton from '@components/PlayButton/PlayButton';
 import Spacer from '@components/Spacer/Spacer';
-import { getAlbumTypeName } from '@modules/album/utils';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import AlbumTracks from '@modules/album/components/AlbumTracks';
@@ -19,7 +18,7 @@ type AlbumPageProps = {
    album: Album;
 };
 
-const AlbumPage: NextPageWithLayout = ({ album }: AlbumPageProps) => {
+const AlbumPage: NextPageWithLayout<AlbumPageProps> = ({ album }) => {
    // const dispatch = useDispatch();
 
    const handlePlay = () => {
@@ -30,14 +29,20 @@ const AlbumPage: NextPageWithLayout = ({ album }: AlbumPageProps) => {
       <>
          <AlbumPageHeader>
             <AlbumImageContainer>
-               {album.image !== '' ? (
-                  <EquilateralImage src={album.image} width={230} height={230} priority alt="" />
+               {album.primaryImage ? (
+                  <EquilateralImage
+                     src={album.primaryImage.url}
+                     width={230}
+                     height={230}
+                     priority
+                     alt=""
+                  />
                ) : (
                   <ImagePlaceholder />
                )}
             </AlbumImageContainer>
             <div>
-               <AlbumLabel>{getAlbumTypeName(album.type)}</AlbumLabel>
+               <AlbumLabel>{album.typeName}</AlbumLabel>
                <Heading as="h1" level={1}>
                   {album.name}
                </Heading>
@@ -45,7 +50,7 @@ const AlbumPage: NextPageWithLayout = ({ album }: AlbumPageProps) => {
                   <AlbumArtists>
                      <ArtistLinks artists={album.artists} />
                   </AlbumArtists>
-                  <AlbumReleaseYear>{new Date(album.releaseDate).getFullYear()}</AlbumReleaseYear>
+                  <AlbumReleaseYear>{album.releaseYear}</AlbumReleaseYear>
                   <div>{album.totalTracks} dal</div>
                </AlbumData>
             </div>
@@ -130,7 +135,7 @@ export const getServerSideProps: GetServerSideProps = async ({ params }) => {
    try {
       return {
          props: {
-            album: await getAlbum(String(params?.id)),
+            album: (await getAlbum(String(params?.id))).toJSON(),
          },
       };
    } catch (error) {

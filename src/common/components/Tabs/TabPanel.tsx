@@ -1,10 +1,8 @@
 import { ReactNode } from 'react';
 
-export type Value = string | number;
-
 type TabPanelProps = {
    label: string;
-   value: Value;
+   value: string;
    children: ReactNode;
 };
 

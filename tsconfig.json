@@ -29,6 +29,9 @@
       "@layouts/*": [
         "src/common/layouts/*"
       ],
+      "@models/*": [
+        "src/common/models/*"
+      ],
       "@store/*": [
         "src/common/store/*"
       ],
