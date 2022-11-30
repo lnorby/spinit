@@ -6,8 +6,10 @@ type Config = {
    headers?: object;
    params?: object;
    data?: object;
+   signal?: AbortSignal | undefined;
 };
 
+// TODO: access token requested everytime problem
 class Api {
    private axios: AxiosInstance;
    private accessToken: string | undefined;
@@ -36,29 +38,19 @@ class Api {
       return this.makeRequest<T>(url, 'DELETE', config);
    }
 
-   // TODO: cancel request
    private async makeRequest<T>(url: string, method: HttpMethod, config: Config): Promise<T> {
-      // const controller = new AbortController();
-
       config.headers = {
          Authorization: `Bearer ${await this.getAccessToken()}`,
          ...config.headers,
       };
 
-      const request = this.axios
-         .request({
-            url,
-            method,
-            // signal: controller.signal,
-            ...config,
-         })
-         .then((response) => response.data);
+      const { data } = await this.axios.request({
+         url,
+         method,
+         ...config,
+      });
 
-      // request.cancel = () => {
-      //     controller.abort();
-      // }
-
-      return request;
+      return data;
    }
 
    private async getAccessToken(): Promise<string> {

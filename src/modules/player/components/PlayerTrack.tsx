@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
-import Image from 'next/image';
 import Track from '@modules/track/models/Track';
+import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
+import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 
 type PlayerTrackProps = {
    track: Track;
@@ -10,7 +11,13 @@ type PlayerTrackProps = {
 const PlayerTrack = ({ track }: PlayerTrackProps) => {
    return (
       <StyledTrack>
-         <TrackImage src={track.album?.image ?? ''} width={56} height={56} alt="" />
+         <TrackImageContainer>
+            {track.album?.primaryImage ? (
+               <EquilateralImage src={track.album.primaryImage.url} width={56} height={56} alt="" />
+            ) : (
+               <ImagePlaceholder />
+            )}
+         </TrackImageContainer>
          <div>
             <TrackName>{track.name}</TrackName>
             <TrackArtists>
@@ -26,10 +33,10 @@ const StyledTrack = styled.div`
    align-items: center;
 `;
 
-const TrackImage = styled(Image)`
+const TrackImageContainer = styled.div`
    flex-shrink: 0;
+   width: 56px;
    margin-right: 14px;
-   object-fit: cover;
 `;
 
 const TrackName = styled.div`

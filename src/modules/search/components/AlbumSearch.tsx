@@ -1,13 +1,14 @@
 import useAlbums from '@modules/album/hooks/useAlbums';
 import AlbumList from '@modules/album/components/AlbumList';
+import ScrollObserver from '@components/ScrollObserver/ScrollObserver';
 
 type AlbumSearchProps = {
    searchQuery: string;
    limit: number;
+   loadMore: boolean;
 };
 
-// TODO: pagination
-const AlbumSearch = ({ searchQuery, limit }: AlbumSearchProps) => {
+const AlbumSearch = ({ searchQuery, limit, loadMore }: AlbumSearchProps) => {
    const query = useAlbums(searchQuery, limit);
 
    if (query.isLoading) {
@@ -18,13 +19,18 @@ const AlbumSearch = ({ searchQuery, limit }: AlbumSearchProps) => {
       return <p>Nem sikerült betölteni a tartalmat.</p>;
    }
 
+   const albums = query.data?.pages.map((page) => page.albums).flat() ?? [];
+
+   if (!albums[0]) {
+      return <p>Nincs találat.</p>;
+   }
+
    return (
       <>
-         {query.data?.length ? (
-            <AlbumList albums={query.data} showArtists={true} />
-         ) : (
-            <p>Nincs találat.</p>
-         )}
+         <AlbumList albums={albums} showArtists={true} />
+         {loadMore && query.hasNextPage ? (
+            <ScrollObserver onTrigger={() => query.fetchNextPage()} />
+         ) : null}
       </>
    );
 };

@@ -25,26 +25,26 @@ const SearchPage: NextPageWithLayout = () => {
                   <SearchPageHeading as="h2" level={2}>
                      Dalok
                   </SearchPageHeading>
-                  <TrackSearch searchQuery={searchQuery} limit={5} />
+                  <TrackSearch searchQuery={searchQuery} limit={5} loadMore={false} />
                   <Spacer y={40} />
                   <SearchPageHeading as="h2" level={2}>
                      Albumok
                   </SearchPageHeading>
-                  <AlbumSearch searchQuery={searchQuery} limit={9} />
+                  <AlbumSearch searchQuery={searchQuery} limit={9} loadMore={false} />
                   <Spacer y={40} />
                   <SearchPageHeading as="h2" level={2}>
                      Előadók
                   </SearchPageHeading>
-                  <ArtistSearch searchQuery={searchQuery} limit={9} />
+                  <ArtistSearch searchQuery={searchQuery} limit={9} loadMore={false} />
                </TabPanel>
                <TabPanel label="Dalok" value="tracks">
-                  <TrackSearch searchQuery={searchQuery} limit={25} />
+                  <TrackSearch searchQuery={searchQuery} limit={30} loadMore={true} />
                </TabPanel>
                <TabPanel label="Albumok" value="albums">
-                  <AlbumSearch searchQuery={searchQuery} limit={45} />
+                  <AlbumSearch searchQuery={searchQuery} limit={45} loadMore={true} />
                </TabPanel>
                <TabPanel label="Előadók" value="artists">
-                  <ArtistSearch searchQuery={searchQuery} limit={45} />
+                  <ArtistSearch searchQuery={searchQuery} limit={45} loadMore={true} />
                </TabPanel>
             </Tabs>
          </Container>

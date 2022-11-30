@@ -2,8 +2,6 @@ import Link from 'next/link';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
 import styled from 'styled-components';
 import { truncateText } from '@styles/utils';
-import { useSelector } from 'react-redux';
-import { RootState } from '@store/store';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import Track from '@modules/track/models/Track';
@@ -14,6 +12,7 @@ type TrackItemProps = {
    showAlbumImage: boolean;
    showArtists: boolean;
    showAlbumName: boolean;
+   isActive: boolean;
    onPlay: (position: number) => void;
 };
 
@@ -24,17 +23,12 @@ const TrackItem = ({
    showAlbumImage,
    showArtists,
    showAlbumName,
+   isActive,
    onPlay,
 }: TrackItemProps) => {
-   const currentTrackIdInPlaylist = useSelector(
-      (state: RootState) => state.playlist.tracks?.[state.playlist.currentIndex]
-   );
-
    return (
       <StyledTrackItem onDoubleClick={() => onPlay(position)}>
-         <TrackPosition highlighted={currentTrackIdInPlaylist === track.id}>
-            {position}
-         </TrackPosition>
+         <TrackPosition highlighted={isActive}>{position}</TrackPosition>
          {showAlbumImage ? (
             <TrackImageContainer>
                {track.album?.primaryImage ? (
@@ -50,7 +44,7 @@ const TrackItem = ({
             </TrackImageContainer>
          ) : null}
          <TrackMain>
-            <TrackName highlighted={currentTrackIdInPlaylist === track.id}>{track.name}</TrackName>
+            <TrackName highlighted={isActive}>{track.name}</TrackName>
             {showArtists ? (
                <TrackArtists>
                   <ArtistLinks artists={track.artists} />

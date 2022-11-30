@@ -1,26 +1,30 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import api from '@utils/api';
 import Track from '@modules/track/models/Track';
 
 const useTracks = (searchQuery: string, limit: number) => {
-   const fetchTracks = async (): Promise<Track[]> => {
+   const fetchTracks = async (
+      url: string | null,
+      signal: AbortSignal | undefined
+   ): Promise<{ tracks: Track[]; nextPage: string | null }> => {
       const data = await api.get<any>(
-         `/search?q=${searchQuery}&type=track&market=HU&limit=${limit}`
+         url ?? `/search?q=${searchQuery}&type=track&market=HU&limit=${limit}`,
+         {
+            signal,
+         }
       );
-      return data.tracks?.items?.map((track: any) => new Track(track)) ?? [];
+
+      return {
+         tracks: data.tracks.items.map((track: any) => new Track(track)),
+         nextPage: data.tracks.next,
+      };
    };
 
-   return useQuery({
-      queryKey: [
-         'search-tracks',
-         {
-            query: searchQuery,
-            limit: limit,
-         },
-      ],
-      queryFn: () => fetchTracks(),
+   return useInfiniteQuery({
+      queryKey: ['search-tracks', searchQuery, limit],
+      queryFn: ({ pageParam, signal }) => fetchTracks(pageParam, signal),
+      getNextPageParam: (lastPage) => lastPage.nextPage,
       enabled: searchQuery !== '',
-      keepPreviousData: true,
    });
 };
 

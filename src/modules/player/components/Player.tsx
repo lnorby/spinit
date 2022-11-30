@@ -1,31 +1,18 @@
-import { useSelector } from 'react-redux';
-import { useQuery } from 'react-query';
-import { RootState } from '@store/store';
 import styled from 'styled-components';
 import PlayerTrack from '@modules/player/components/PlayerTrack';
-import getTrack from '@modules/track/api/getTrack';
+import usePlayer from '@modules/player/hooks/usePlayer';
 
-// TODO: custom hook
 const Player = () => {
-   const currentTrackIdInPlaylist: string | null = useSelector(
-      (state: RootState) => state.playlist.tracks?.[state.playlist.currentIndex] ?? null
-   );
+   const { currentTrack } = usePlayer();
 
-   const firstTrackQuery = useQuery({
-      queryKey: ['track', currentTrackIdInPlaylist],
-      queryFn: () => getTrack(currentTrackIdInPlaylist),
-      keepPreviousData: true,
-      enabled: currentTrackIdInPlaylist !== null,
-   });
-
-   if (!firstTrackQuery.data) {
+   if (!currentTrack) {
       return null;
    }
 
    return (
       <StyledPlayer>
          <PlayerBar>
-            <PlayerTrack track={firstTrackQuery.data} />
+            <PlayerTrack track={currentTrack} />
          </PlayerBar>
       </StyledPlayer>
    );

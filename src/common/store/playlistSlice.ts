@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type PlaylistState = {
-   tracks: string[];
+   trackIds: string[];
    currentIndex: number;
 };
 
 const initialState: PlaylistState = {
-   tracks: [],
+   trackIds: [],
    currentIndex: -1,
 };
 
@@ -15,11 +15,11 @@ const playlistSlice = createSlice({
    initialState,
    reducers: {
       addTracks: (state, action: PayloadAction<string[]>) => {
-         state.tracks = action.payload;
+         state.trackIds = action.payload;
          state.currentIndex = 0;
       },
       removeTrack: (state, action: PayloadAction<string>) => {
-         state.tracks.filter((trackId) => trackId !== action.payload);
+         state.trackIds.filter((trackId) => trackId !== action.payload);
       },
       playNextTrack: (state) => {
          state.currentIndex += 1;

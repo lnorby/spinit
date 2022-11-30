@@ -1,8 +1,8 @@
-import { ComponentPropsWithoutRef, ReactElement, useEffect, useState } from 'react';
+import { ComponentPropsWithoutRef, ReactElement, useState } from 'react';
 import styled, { css } from 'styled-components';
 
 type TabsProps = {
-   children: ReactElement[];
+   children: ReactElement<{ label: string; value: string }>[];
    value?: string;
 };
 
@@ -10,45 +10,22 @@ type Props = TabsProps & Omit<ComponentPropsWithoutRef<'div'>, keyof TabsProps>;
 
 // TODO: make it TS compatible
 const Tabs = ({ children, value: initialValue, ...restProps }: Props) => {
-   const [value, setValue] = useState(initialValue ?? children[0].props.value);
-   const [activatedTabs, setActivatedTabs] = useState<Set<string>>(new Set());
-
-   const handleClick = (value: string) => {
-      setValue(value);
-      setActivatedTabs((state) => new Set(state).add(value));
-   };
-
-   useEffect(() => {
-      setActivatedTabs((state) => new Set(state).add(value));
-   }, [value]);
-
-   let buttons: ReactElement[] = [];
-   let panels: ReactElement[] = [];
-
-   children.map((child) => {
-      buttons.push(
-         <Button
-            active={child.props.value === value}
-            key={child.props.value}
-            onClick={() => handleClick(child.props.value)}
-         >
-            {child.props.label}
-         </Button>
-      );
-
-      if (activatedTabs.has(child.props.value)) {
-         panels.push(
-            <section hidden={child.props.value !== value} key={child.props.value}>
-               {child}
-            </section>
-         );
-      }
-   });
+   const [value, setValue] = useState<string>(initialValue ?? children[0].props.value);
 
    return (
       <div {...restProps}>
-         <ButtonContainer>{buttons}</ButtonContainer>
-         {panels}
+         <ButtonContainer>
+            {children.map((child) => (
+               <Button
+                  active={child.props.value === value}
+                  key={child.props.value}
+                  onClick={() => setValue(child.props.value)}
+               >
+                  {child.props.label}
+               </Button>
+            ))}
+         </ButtonContainer>
+         {children.find((child) => child.props.value === value)}
       </div>
    );
 };

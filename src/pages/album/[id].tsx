@@ -19,11 +19,7 @@ type AlbumPageProps = {
 };
 
 const AlbumPage: NextPageWithLayout<AlbumPageProps> = ({ album }) => {
-   // const dispatch = useDispatch();
-
-   const handlePlay = () => {
-      // dispatch(addTracks(album.tracks.map((track) => track.id)));
-   };
+   const handlePlay = () => {};
 
    return (
       <>

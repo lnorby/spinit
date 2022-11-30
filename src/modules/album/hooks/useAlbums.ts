@@ -1,26 +1,30 @@
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import api from '@utils/api';
 import Album from '@modules/album/models/Album';
 
 const useAlbums = (searchQuery: string, limit: number) => {
-   const fetchAlbums = async (): Promise<Album[]> => {
+   const fetchAlbums = async (
+      url: string | null,
+      signal: AbortSignal | undefined
+   ): Promise<{ albums: Album[]; nextPage: string | null }> => {
       const data = await api.get<any>(
-         `/search/?q=${searchQuery}&type=album&market=HU&limit=${limit}`
+         url ?? `/search/?q=${searchQuery}&type=album&market=HU&limit=${limit}`,
+         {
+            signal,
+         }
       );
-      return data.albums?.items?.map((album: any) => new Album(album)) ?? [];
+
+      return {
+         albums: data.albums.items.map((album: any) => new Album(album)),
+         nextPage: data.albums.next,
+      };
    };
 
-   return useQuery({
-      queryKey: [
-         'search-albums',
-         {
-            query: searchQuery,
-            limit: limit,
-         },
-      ],
-      queryFn: () => fetchAlbums(),
+   return useInfiniteQuery({
+      queryKey: ['search-albums', searchQuery, limit],
+      queryFn: ({ pageParam, signal }) => fetchAlbums(pageParam, signal),
+      getNextPageParam: (lastPage) => lastPage.nextPage,
       enabled: searchQuery !== '',
-      keepPreviousData: true,
    });
 };
 

@@ -1,13 +1,14 @@
 import useArtists from '@modules/artist/hooks/useArtists';
 import ArtistList from '@modules/artist/components/ArtistList';
+import ScrollObserver from '@components/ScrollObserver/ScrollObserver';
 
 type ArtistSearchProps = {
    searchQuery: string;
    limit: number;
+   loadMore: boolean;
 };
 
-// TODO: pagination
-const ArtistSearch = ({ searchQuery, limit }: ArtistSearchProps) => {
+const ArtistSearch = ({ searchQuery, limit, loadMore }: ArtistSearchProps) => {
    const query = useArtists(searchQuery, limit);
 
    if (query.isLoading) {
@@ -18,7 +19,20 @@ const ArtistSearch = ({ searchQuery, limit }: ArtistSearchProps) => {
       return <p>Nem sikerült betölteni a tartalmat.</p>;
    }
 
-   return <>{query.data?.length ? <ArtistList artists={query.data} /> : <p>Nincs találat.</p>}</>;
+   const artists = query.data?.pages.map((page) => page.artists).flat() ?? [];
+
+   if (!artists[0]) {
+      return <p>Nincs találat.</p>;
+   }
+
+   return (
+      <>
+         <ArtistList artists={artists} />
+         {loadMore && query.hasNextPage ? (
+            <ScrollObserver onTrigger={() => query.fetchNextPage()} />
+         ) : null}
+      </>
+   );
 };
 
 export default ArtistSearch;

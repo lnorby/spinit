@@ -1,7 +1,6 @@
 import TrackItem from '@modules/track/components/TrackItem';
-import { useDispatch } from 'react-redux';
-import { addTracks } from '@store/playlistSlice';
 import Track from '@modules/track/models/Track';
+import usePlayer from '@modules/player/hooks/usePlayer';
 
 type TrackListProps = {
    tracks: Track[];
@@ -20,11 +19,11 @@ const TrackList = ({
    showAlbumName,
    limit,
 }: TrackListProps) => {
-   const dispatch = useDispatch();
+   const { currentTrack, playTracks } = usePlayer();
 
    const handlePlay = (position: number) => {
       const tracksFromPosition = tracks.filter((track) => track.trackNumber >= position);
-      dispatch(addTracks(tracksFromPosition.map((track) => track.id)));
+      playTracks(tracksFromPosition.map((track) => track.id));
    };
 
    let visibleTracks = tracks;
@@ -37,13 +36,14 @@ const TrackList = ({
       <>
          {visibleTracks.map((track, index) => (
             <TrackItem
-               key={track.id}
                position={positionByTrackNumber ? track.trackNumber : index + 1}
                track={track}
                showAlbumImage={showAlbumImage}
                showArtists={showArtists}
                showAlbumName={showAlbumName}
+               isActive={track.id === currentTrack?.id}
                onPlay={(position) => handlePlay(position)}
+               key={track.id}
             />
          ))}
       </>
