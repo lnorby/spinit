@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
 import styled from 'styled-components';
-import { truncateText } from '@styles/utils';
+import {truncateText} from '@styles/utils';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import Track from '@modules/track/models/Track';
@@ -12,7 +12,7 @@ type TrackItemProps = {
    showAlbumImage: boolean;
    showArtists: boolean;
    showAlbumName: boolean;
-   isActive: boolean;
+   active: boolean;
    onPlay: (position: number) => void;
 };
 
@@ -23,12 +23,12 @@ const TrackItem = ({
    showAlbumImage,
    showArtists,
    showAlbumName,
-   isActive,
+   active,
    onPlay,
 }: TrackItemProps) => {
    return (
       <StyledTrackItem onDoubleClick={() => onPlay(position)}>
-         <TrackPosition highlighted={isActive}>{position}</TrackPosition>
+         <TrackPosition highlighted={active}>{position}</TrackPosition>
          {showAlbumImage ? (
             <TrackImageContainer>
                {track.album?.primaryImage ? (
@@ -44,7 +44,7 @@ const TrackItem = ({
             </TrackImageContainer>
          ) : null}
          <TrackMain>
-            <TrackName highlighted={isActive}>{track.name}</TrackName>
+            <TrackName highlighted={active}>{track.name}</TrackName>
             {showArtists ? (
                <TrackArtists>
                   <ArtistLinks artists={track.artists} />

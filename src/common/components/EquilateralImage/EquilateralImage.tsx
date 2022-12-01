@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import Image, { ImageProps } from 'next/image';
+import Image, {ImageProps} from 'next/image';
 
 type EquilateralImageProps = ImageProps;
 

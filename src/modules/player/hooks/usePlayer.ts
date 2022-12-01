@@ -1,30 +1,35 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@store/store';
-import { useQuery } from 'react-query';
+import {useQuery} from 'react-query';
 import getTrack from '@modules/track/api/getTrack';
-import { addTracks } from '@store/playlistSlice';
+import usePlaylistStore from '@store/usePlaylistStore';
+import shallow from 'zustand/shallow';
 
 const usePlayer = () => {
-   const dispatch = useDispatch();
-
-   const currentTrackId = useSelector(
-      (state: RootState) => state.playlist.trackIds?.[state.playlist.currentIndex]
-   );
+   const playlist = usePlaylistStore((state) => state, shallow);
 
    const currentTrackQuery = useQuery({
-      queryKey: ['track', currentTrackId],
-      queryFn: () => getTrack(currentTrackId),
+      queryKey: ['track', playlist.currentTrackId()],
+      queryFn: () => getTrack(playlist.currentTrackId()),
       keepPreviousData: true,
-      enabled: currentTrackId !== undefined,
+      enabled: playlist.currentTrackId() !== undefined,
    });
 
    const playTracks = (trackIds: string[]) => {
-      dispatch(addTracks(trackIds));
+      playlist.addTracks(trackIds);
+   };
+
+   const playNextTrack = () => {
+      playlist.nextTrack();
+   };
+
+   const playPreviousTrack = () => {
+      playlist.previousTrack();
    };
 
    return {
       playTracks,
       currentTrack: currentTrackQuery.data,
+      playNextTrack,
+      playPreviousTrack,
    };
 };
 

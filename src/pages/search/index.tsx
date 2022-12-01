@@ -1,4 +1,4 @@
-import { ReactElement, useState } from 'react';
+import {ReactElement, useState} from 'react';
 import SearchInput from '@modules/search/components/SearchInput';
 import Container from '@components/Container/Container';
 import styled from 'styled-components';
@@ -8,9 +8,8 @@ import Tabs from '@components/Tabs/Tabs';
 import TrackSearch from '@modules/search/components/TrackSearch';
 import AlbumSearch from '@modules/search/components/AlbumSearch';
 import ArtistSearch from '@modules/search/components/ArtistSearch';
-import { NextPageWithLayout } from '../_app';
+import {NextPageWithLayout} from '../_app';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
-import TabPanel from '@components/Tabs/TabPanel';
 
 const SearchPage: NextPageWithLayout = () => {
    const [searchQuery, setSearchQuery] = useState('');
@@ -20,33 +19,44 @@ const SearchPage: NextPageWithLayout = () => {
          <Container>
             <SearchInput onChange={(value) => setSearchQuery(value)} />
             <Spacer y={20} />
-            <Tabs hidden={searchQuery === ''}>
-               <TabPanel label="Az összes" value="all">
-                  <SearchPageHeading as="h2" level={2}>
-                     Dalok
-                  </SearchPageHeading>
-                  <TrackSearch searchQuery={searchQuery} limit={5} loadMore={false} />
-                  <Spacer y={40} />
-                  <SearchPageHeading as="h2" level={2}>
-                     Albumok
-                  </SearchPageHeading>
-                  <AlbumSearch searchQuery={searchQuery} limit={9} loadMore={false} />
-                  <Spacer y={40} />
-                  <SearchPageHeading as="h2" level={2}>
-                     Előadók
-                  </SearchPageHeading>
-                  <ArtistSearch searchQuery={searchQuery} limit={9} loadMore={false} />
-               </TabPanel>
-               <TabPanel label="Dalok" value="tracks">
-                  <TrackSearch searchQuery={searchQuery} limit={30} loadMore={true} />
-               </TabPanel>
-               <TabPanel label="Albumok" value="albums">
-                  <AlbumSearch searchQuery={searchQuery} limit={45} loadMore={true} />
-               </TabPanel>
-               <TabPanel label="Előadók" value="artists">
-                  <ArtistSearch searchQuery={searchQuery} limit={45} loadMore={true} />
-               </TabPanel>
-            </Tabs>
+            <Tabs
+               items={[
+                  {
+                     label: 'Az összes',
+                     content: (
+                        <>
+                           <SearchPageHeading as="h2" level={2}>
+                              Dalok
+                           </SearchPageHeading>
+                           <TrackSearch searchQuery={searchQuery} limit={5} loadMore={false} />
+                           <Spacer y={40} />
+                           <SearchPageHeading as="h2" level={2}>
+                              Albumok
+                           </SearchPageHeading>
+                           <AlbumSearch searchQuery={searchQuery} limit={9} loadMore={false} />
+                           <Spacer y={40} />
+                           <SearchPageHeading as="h2" level={2}>
+                              Előadók
+                           </SearchPageHeading>
+                           <ArtistSearch searchQuery={searchQuery} limit={9} loadMore={false} />
+                        </>
+                     ),
+                  },
+                  {
+                     label: 'Dalok',
+                     content: <TrackSearch searchQuery={searchQuery} limit={30} loadMore={true} />,
+                  },
+                  {
+                     label: 'Albumok',
+                     content: <AlbumSearch searchQuery={searchQuery} limit={45} loadMore={true} />,
+                  },
+                  {
+                     label: 'Előadók',
+                     content: <ArtistSearch searchQuery={searchQuery} limit={45} loadMore={true} />,
+                  },
+               ]}
+               hidden={searchQuery === ''}
+            />
          </Container>
       </StyledSearchPage>
    );

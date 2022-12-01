@@ -41,7 +41,7 @@ const TrackList = ({
                showAlbumImage={showAlbumImage}
                showArtists={showArtists}
                showAlbumName={showAlbumName}
-               isActive={track.id === currentTrack?.id}
+               active={track.id === currentTrack?.id}
                onPlay={(position) => handlePlay(position)}
                key={track.id}
             />

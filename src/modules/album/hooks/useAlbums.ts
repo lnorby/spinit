@@ -1,4 +1,4 @@
-import { useInfiniteQuery } from 'react-query';
+import {useInfiniteQuery} from 'react-query';
 import api from '@utils/api';
 import Album from '@modules/album/models/Album';
 

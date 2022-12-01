@@ -1,31 +1,29 @@
-import { ComponentPropsWithoutRef, ReactElement, useState } from 'react';
-import styled, { css } from 'styled-components';
+import {ComponentPropsWithoutRef, ReactNode, useState} from 'react';
+import styled, {css} from 'styled-components';
 
 type TabsProps = {
-   children: ReactElement<{ label: string; value: string }>[];
-   value?: string;
+   items: { label: string; content: ReactNode }[];
 };
 
 type Props = TabsProps & Omit<ComponentPropsWithoutRef<'div'>, keyof TabsProps>;
 
-// TODO: make it TS compatible
-const Tabs = ({ children, value: initialValue, ...restProps }: Props) => {
-   const [value, setValue] = useState<string>(initialValue ?? children[0].props.value);
+const Tabs = ({ items, ...restProps }: Props) => {
+   const [activeItemIndex, setActiveItemIndex] = useState(0);
 
    return (
       <div {...restProps}>
          <ButtonContainer>
-            {children.map((child) => (
+            {items.map((item, index) => (
                <Button
-                  active={child.props.value === value}
-                  key={child.props.value}
-                  onClick={() => setValue(child.props.value)}
+                  active={index === activeItemIndex}
+                  onClick={() => setActiveItemIndex(index)}
+                  key={index}
                >
-                  {child.props.label}
+                  {item.label}
                </Button>
             ))}
          </ButtonContainer>
-         {children.find((child) => child.props.value === value)}
+         {items[activeItemIndex].content}
       </div>
    );
 };

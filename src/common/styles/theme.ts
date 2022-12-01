@@ -1,4 +1,4 @@
-import { Inter } from '@next/font/google';
+import {Inter} from '@next/font/google';
 
 const primaryFont = Inter({
    subsets: ['latin', 'latin-ext'],

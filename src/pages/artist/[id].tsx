@@ -1,4 +1,4 @@
-import { GetServerSideProps } from 'next';
+import {GetServerSideProps} from 'next';
 import styled from 'styled-components';
 import Heading from '@components/Heading/Heading';
 import Container from '@components/Container/Container';
@@ -7,13 +7,12 @@ import PlayButton from '@components/PlayButton/PlayButton';
 import ArtistTopTracks from '@modules/artist/components/ArtistTopTracks';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
-import { NextPageWithLayout } from '../_app';
-import { ReactElement } from 'react';
+import {NextPageWithLayout} from '../_app';
+import {ReactElement} from 'react';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
 import getArtist from '@modules/artist/api/getArtist';
 import Artist from '@modules/artist/models/Artist';
 import Tabs from '@components/Tabs/Tabs';
-import TabPanel from '@components/Tabs/TabPanel';
 import ArtistAlbums from '@modules/artist/components/ArtistAlbums';
 
 type ArtistPageProps = {
@@ -58,17 +57,22 @@ const ArtistPage: NextPageWithLayout<ArtistPageProps> = ({ artist }) => {
                <ArtistPageHeading as="h2" level={2}>
                   Diszkográfia
                </ArtistPageHeading>
-               <Tabs>
-                  <TabPanel label="Albumok" value="albums">
-                     <ArtistAlbums artistId={artist.id} albumType="album" />
-                  </TabPanel>
-                  <TabPanel label="Kislemezek és EP-k" value="singles">
-                     <ArtistAlbums artistId={artist.id} albumType="single" />
-                  </TabPanel>
-                  <TabPanel label="Válogatások" value="compilations">
-                     <ArtistAlbums artistId={artist.id} albumType="compilation" />
-                  </TabPanel>
-               </Tabs>
+               <Tabs
+                  items={[
+                     {
+                        label: 'Albumok',
+                        content: <ArtistAlbums artistId={artist.id} albumType="album" />,
+                     },
+                     {
+                        label: 'Kislemezek és EP-k',
+                        content: <ArtistAlbums artistId={artist.id} albumType="single" />,
+                     },
+                     {
+                        label: 'Válogatások',
+                        content: <ArtistAlbums artistId={artist.id} albumType="compilation" />,
+                     },
+                  ]}
+               />
             </Container>
          </ArtistPageBody>
       </>

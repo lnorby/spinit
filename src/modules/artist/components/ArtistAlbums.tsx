@@ -1,4 +1,4 @@
-import { AlbumType } from '@modules/album/models/Album';
+import {AlbumType} from '@modules/album/models/Album';
 import useArtistAlbums from '@modules/album/hooks/useArtistAlbums';
 import AlbumList from '@modules/album/components/AlbumList';
 import ScrollObserver from '@components/ScrollObserver/ScrollObserver';

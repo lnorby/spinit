@@ -1,5 +1,5 @@
-import styled, { css } from 'styled-components';
-import { fluidFontSize } from '@styles/utils';
+import styled, {css} from 'styled-components';
+import {fluidFontSize} from '@styles/utils';
 
 type HeadingProps = {
    level: 1 | 2;

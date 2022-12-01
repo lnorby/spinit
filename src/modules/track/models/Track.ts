@@ -8,6 +8,7 @@ class Track {
    duration: string;
    album?: Album;
    artists: Artist[];
+   url: string;
 
    constructor(model: any) {
       this.id = model.id;
@@ -16,6 +17,7 @@ class Track {
       this.duration = Track.formatDuration(model.duration_ms);
       this.album = model.album ? new Album(model.album) : undefined;
       this.artists = model.artists?.map((artist: any) => new Artist(artist)) ?? [];
+      this.url = model.href;
    }
 
    private static formatDuration(durationInMs: number): string {
