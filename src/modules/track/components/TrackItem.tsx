@@ -1,7 +1,7 @@
 import Link from 'next/link';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
 import styled from 'styled-components';
-import {truncateText} from '@styles/utils';
+import { truncateText } from '@styles/utils';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import Track from '@modules/track/models/Track';

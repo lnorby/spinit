@@ -1,6 +1,6 @@
 import Header from '@components/Header/Header';
 import Player from '@modules/player/components/Player';
-import {ReactNode} from 'react';
+import { ReactNode } from 'react';
 import Head from 'next/head';
 import usePageLoadingStatus from '@hooks/usePageLoadingStatus';
 

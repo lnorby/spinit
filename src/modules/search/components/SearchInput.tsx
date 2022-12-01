@@ -1,7 +1,7 @@
-import {useEffect, useRef, useState} from 'react';
+import { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import {FiSearch} from 'react-icons/fi';
-import {VscClose} from 'react-icons/vsc';
+import { FiSearch } from 'react-icons/fi';
+import { VscClose } from 'react-icons/vsc';
 
 type SearchInputProps = {
    onChange: (value: string) => void;

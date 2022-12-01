@@ -1,4 +1,4 @@
-import {useQuery} from 'react-query';
+import { useQuery } from 'react-query';
 import getTrack from '@modules/track/api/getTrack';
 import usePlaylistStore from '@store/usePlaylistStore';
 import shallow from 'zustand/shallow';

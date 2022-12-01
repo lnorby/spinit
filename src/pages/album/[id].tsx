@@ -1,4 +1,4 @@
-import {GetServerSideProps} from 'next';
+import { GetServerSideProps } from 'next';
 import ArtistLinks from '@components/ArtistLinks/ArtistLinks';
 import styled from 'styled-components';
 import Heading from '@components/Heading/Heading';
@@ -8,8 +8,8 @@ import Spacer from '@components/Spacer/Spacer';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import AlbumTracks from '@modules/album/components/AlbumTracks';
-import {NextPageWithLayout} from '../_app';
-import {ReactElement} from 'react';
+import { NextPageWithLayout } from '../_app';
+import { ReactElement } from 'react';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
 import getAlbum from '@modules/album/api/getAlbum';
 import Album from '@modules/album/models/Album';

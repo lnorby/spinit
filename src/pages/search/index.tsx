@@ -1,4 +1,4 @@
-import {ReactElement, useState} from 'react';
+import { ReactElement, useState } from 'react';
 import SearchInput from '@modules/search/components/SearchInput';
 import Container from '@components/Container/Container';
 import styled from 'styled-components';
@@ -8,7 +8,7 @@ import Tabs from '@components/Tabs/Tabs';
 import TrackSearch from '@modules/search/components/TrackSearch';
 import AlbumSearch from '@modules/search/components/AlbumSearch';
 import ArtistSearch from '@modules/search/components/ArtistSearch';
-import {NextPageWithLayout} from '../_app';
+import { NextPageWithLayout } from '../_app';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
 
 const SearchPage: NextPageWithLayout = () => {

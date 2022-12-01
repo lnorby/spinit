@@ -1,6 +1,6 @@
-import {useInfiniteQuery} from 'react-query';
+import { useInfiniteQuery } from 'react-query';
 import api from '@utils/api';
-import Album, {AlbumType} from '@modules/album/models/Album';
+import Album, { AlbumType } from '@modules/album/models/Album';
 
 const useArtistAlbums = (artistId: string, albumType: AlbumType, limit: number) => {
    const fetchAlbums = async (

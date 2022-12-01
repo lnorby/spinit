@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {MdPlayArrow} from 'react-icons/md';
+import { MdPlayArrow } from 'react-icons/md';
 
 type PlayButtonProps = {
    size: 'small' | 'big';

@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import styled from 'styled-components';
-import {extendClickableArea, truncateText} from '@styles/utils';
+import { extendClickableArea, truncateText } from '@styles/utils';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 

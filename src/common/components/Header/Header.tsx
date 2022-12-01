@@ -1,8 +1,8 @@
 import styled from 'styled-components';
 import Link from 'next/link';
 import Logo from '@components/Logo/Logo';
-import {useRouter} from 'next/router';
-import {FiSearch} from 'react-icons/fi';
+import { useRouter } from 'next/router';
+import { FiSearch } from 'react-icons/fi';
 import useScrollPosition from '@react-hook/window-scroll';
 
 const Header = () => {

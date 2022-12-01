@@ -1,5 +1,5 @@
-import {ComponentPropsWithoutRef, ReactNode, useState} from 'react';
-import styled, {css} from 'styled-components';
+import { ComponentPropsWithoutRef, ReactNode, useState } from 'react';
+import styled, { css } from 'styled-components';
 
 type TabsProps = {
    items: { label: string; content: ReactNode }[];

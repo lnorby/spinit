@@ -1,4 +1,4 @@
-import {useQuery} from 'react-query';
+import { useQuery } from 'react-query';
 import api from '@utils/api';
 import Track from '@modules/track/models/Track';
 

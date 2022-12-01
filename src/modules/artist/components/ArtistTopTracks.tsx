@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import useArtistTopTracks from '@modules/track/hooks/useArtistTopTracks';
 import TrackList from '@modules/track/components/TrackList';
 import styled from 'styled-components';

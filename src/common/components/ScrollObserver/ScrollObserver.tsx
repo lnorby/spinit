@@ -1,5 +1,5 @@
-import {useEffect, useRef} from 'react';
-import {useWindowHeight} from '@react-hook/window-size';
+import { useEffect, useRef } from 'react';
+import { useWindowHeight } from '@react-hook/window-size';
 import useWindowScroll from '@react-hook/window-scroll';
 
 type ScrollObserverProps = {

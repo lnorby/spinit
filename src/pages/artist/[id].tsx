@@ -1,4 +1,4 @@
-import {GetServerSideProps} from 'next';
+import { GetServerSideProps } from 'next';
 import styled from 'styled-components';
 import Heading from '@components/Heading/Heading';
 import Container from '@components/Container/Container';
@@ -7,8 +7,8 @@ import PlayButton from '@components/PlayButton/PlayButton';
 import ArtistTopTracks from '@modules/artist/components/ArtistTopTracks';
 import EquilateralImage from '@components/EquilateralImage/EquilateralImage';
 import ImagePlaceholder from '@components/ImagePlaceholder/ImagePlaceholder';
-import {NextPageWithLayout} from '../_app';
-import {ReactElement} from 'react';
+import { NextPageWithLayout } from '../_app';
+import { ReactElement } from 'react';
 import DefaultLayout from '@layouts/DefaultLayout/DefaultLayout';
 import getArtist from '@modules/artist/api/getArtist';
 import Artist from '@modules/artist/models/Artist';
